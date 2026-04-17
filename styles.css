@@ -1239,15 +1239,17 @@ body.premium-site * {
 }
 
 .premium-site .btn-toggle {
-  width: 46px;
-  min-width: 46px;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
   padding: 0;
-  border-radius: 14px;
-  border-color: var(--header-border);
+  border-radius: 12px;
+  border-color: rgba(246, 241, 234, 0.26);
   color: var(--header-text);
-  font-size: 1.1rem;
+  font-size: 1.12rem;
+  font-weight: 700;
   line-height: 1;
-  background: var(--header-scrim);
+  background: rgba(255, 255, 255, 0.05);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 6px 14px rgba(0, 0, 0, 0.2);
@@ -1257,6 +1259,22 @@ body.premium-site * {
   background: rgba(231, 200, 145, 0.14);
   border-color: rgba(231, 200, 145, 0.48);
   color: #f9deb0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 8px 18px rgba(0, 0, 0, 0.24);
+}
+
+.premium-site .btn-toggle:hover {
+  border-color: rgba(231, 200, 145, 0.45);
+  transform: translateY(-1px);
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.premium-site .btn-toggle:focus-visible {
+  outline: 2px solid rgba(231, 200, 145, 0.55);
+  outline-offset: 2px;
 }
 
 .premium-site .btn-ghost {
