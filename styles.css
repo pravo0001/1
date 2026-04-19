@@ -1019,10 +1019,7 @@ body.premium-site {
   --radius-md: 18px;
   margin: 0;
   color: var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(154, 107, 58, 0.14), transparent 28%),
-    radial-gradient(circle at top right, rgba(43, 27, 18, 0.06), transparent 20%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 46%, var(--bg-deep) 100%);
+  background: var(--bg-soft);
   font-family: Inter, Arial, sans-serif;
   line-height: 1.7;
 }
@@ -1863,12 +1860,30 @@ body.premium-site * {
   padding: 72px 0 40px;
 }
 
-/* Internal pages should keep the same calm background as Process. */
-.premium-site .page-hero ~ .section.section-soft {
+/* Match the lighter Analytics page background across selected internal pages. */
+body.premium-site.uniform-page-bg {
+  position: relative;
+  isolation: isolate;
+  background: none;
+}
+
+body.premium-site.uniform-page-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top left, rgba(154, 107, 58, 0.14), transparent 28%),
+    radial-gradient(circle at top right, rgba(43, 27, 18, 0.06), transparent 20%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+}
+
+.premium-site.uniform-page-bg .section.section-soft {
   background: transparent;
 }
 
-.premium-site .page-hero ~ .section .cta-banner {
+.premium-site.uniform-page-bg .section .cta-banner {
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--text);
@@ -1876,12 +1891,12 @@ body.premium-site * {
   backdrop-filter: blur(18px);
 }
 
-.premium-site .page-hero ~ .section .cta-banner h2,
-.premium-site .page-hero ~ .section .cta-banner p {
+.premium-site.uniform-page-bg .section .cta-banner h2,
+.premium-site.uniform-page-bg .section .cta-banner p {
   color: inherit;
 }
 
-.premium-site .page-hero ~ .section .cta-banner .btn-ghost {
+.premium-site.uniform-page-bg .section .cta-banner .btn-ghost {
   color: var(--text-strong);
   border-color: color-mix(in srgb, var(--line) 70%, transparent);
   background: color-mix(in srgb, var(--surface-strong) 72%, transparent);
