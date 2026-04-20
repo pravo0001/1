@@ -157,12 +157,42 @@ const setPhoneCaretToEnd = (input) => {
   });
 };
 
+const stripDigitsFromName = (value) => String(value ?? "").replace(/\p{Nd}/gu, "");
+
 document.querySelectorAll("[data-consultation-form]").forEach((form) => {
   if (!(form instanceof HTMLFormElement)) return;
 
   const note = form.querySelector("[data-form-note]");
   const phoneInput = form.querySelector('input[name="phone"]');
+  const nameInput = form.querySelector('input[name="name"]');
   const createdAt = Date.now();
+
+  if (nameInput instanceof HTMLInputElement) {
+    nameInput.addEventListener("input", () => {
+      const prev = nameInput.value;
+      const next = stripDigitsFromName(prev);
+      if (prev === next) return;
+      const sel = nameInput.selectionStart ?? prev.length;
+      const newPos = stripDigitsFromName(prev.slice(0, sel)).length;
+      nameInput.value = next;
+      requestAnimationFrame(() => {
+        try {
+          nameInput.setSelectionRange(newPos, newPos);
+        } catch {
+          // ignore
+        }
+      });
+    });
+
+    nameInput.addEventListener("paste", (event) => {
+      event.preventDefault();
+      const pasted = event.clipboardData?.getData("text") ?? "";
+      const start = nameInput.selectionStart ?? 0;
+      const end = nameInput.selectionEnd ?? 0;
+      const merged = `${nameInput.value.slice(0, start)}${pasted}${nameInput.value.slice(end)}`;
+      nameInput.value = stripDigitsFromName(merged);
+    });
+  }
 
   if (phoneInput instanceof HTMLInputElement) {
     phoneInput.value = normalizeUaPhone(phoneInput.value);
@@ -269,6 +299,14 @@ document.querySelectorAll("[data-consultation-form]").forEach((form) => {
 
     if (name.length < 2) {
       note.textContent = "Вкажіть, будь ласка, ваше ім'я.";
+      return;
+    }
+
+    if (/\p{Nd}/u.test(name)) {
+      note.textContent = "Ім’я не може містити цифри.";
+      if (nameField instanceof HTMLInputElement) {
+        nameField.focus();
+      }
       return;
     }
 

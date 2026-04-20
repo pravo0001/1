@@ -105,7 +105,7 @@
           <form class="form" data-consultation-form>
             <label>
               Ім’я
-              <input type="text" name="name" required autocomplete="name" placeholder="Ваше ім’я">
+              <input type="text" name="name" required minlength="2" autocomplete="name" inputmode="text" pattern="^[^0-9]+$" title="Ім’я не може містити цифри. Використовуйте лише літери." placeholder="Ваше ім’я">
             </label>
             <label>
               Телефон
