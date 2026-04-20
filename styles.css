@@ -1606,6 +1606,14 @@ body.premium-site * {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.premium-site .directions-focus {
+  margin-top: 32px;
+}
+
+.premium-site .directions-focus .timeline {
+  margin-top: 12px;
+}
+
 .premium-site .profile-panel,
 .premium-site .contact-panel,
 .premium-site .spotlight-panel,
