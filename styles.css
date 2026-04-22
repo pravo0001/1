@@ -1382,7 +1382,6 @@ body.premium-site * {
 .premium-site .case-card,
 .premium-site .testimonial-card,
 .premium-site .trust-card,
-.premium-site .process-card,
 .premium-site .resource-card,
 .premium-site .blog-card {
   border: 1px solid var(--line);
@@ -1630,8 +1629,7 @@ body.premium-site * {
   list-style: none;
 }
 
-.premium-site .timeline li,
-.premium-site .process-card {
+.premium-site .timeline li {
   padding: 22px 24px;
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--surface-strong) 68%, transparent);
