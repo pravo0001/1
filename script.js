@@ -131,6 +131,75 @@ if (menuToggle instanceof HTMLButtonElement && menu instanceof HTMLElement) {
   }
 }
 
+/** Google Ads — конверсія «Контакт» (подія після gtag у <head>) */
+const GOOGLE_ADS_CONVERSION_SEND_TO = "AW-18141894337/8hzzCIHygqkcEMGt3cpD";
+
+window.gtag_report_conversion = function gtag_report_conversion(url, openInNewTab) {
+  const callback = function () {
+    if (typeof url === "undefined") return;
+    if (openInNewTab) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    } else {
+      window.location = url;
+    }
+  };
+  if (typeof gtag !== "function") {
+    callback();
+    return false;
+  }
+  gtag("event", "conversion", {
+    send_to: GOOGLE_ADS_CONVERSION_SEND_TO,
+    event_callback: callback,
+  });
+  return false;
+};
+
+const getAdsNavigationUrl = (anchor) => {
+  if (!(anchor instanceof HTMLAnchorElement)) return "";
+  const hrefAttr = anchor.getAttribute("href");
+  if (hrefAttr == null || hrefAttr === "") return "";
+  try {
+    return new URL(hrefAttr, window.location.href).href;
+  } catch {
+    return "";
+  }
+};
+
+const isPhoneOrMessengerContactLink = (anchor) => {
+  if (!(anchor instanceof HTMLAnchorElement)) return false;
+  if (anchor.hasAttribute("data-no-ads-conversion")) return false;
+  const raw = anchor.getAttribute("href") ?? "";
+  const lower = raw.trim().toLowerCase();
+  if (lower.startsWith("tel:") || lower.startsWith("mailto:")) return true;
+  if (lower.startsWith("viber://")) return true;
+  if (lower.includes("wa.me") || lower.includes("api.whatsapp.com")) return true;
+  if (lower.includes("t.me") || lower.includes("telegram.me")) return true;
+  return false;
+};
+
+const isConsultationFloatingCta = (anchor) => {
+  if (!(anchor instanceof HTMLAnchorElement)) return false;
+  if (anchor.hasAttribute("data-no-ads-conversion")) return false;
+  if (!anchor.classList.contains("floating-cta")) return false;
+  const href = anchor.getAttribute("href") ?? "";
+  return href.includes("consultation-form");
+};
+
+document.addEventListener(
+  "click",
+  (event) => {
+    const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
+    if (!(anchor instanceof HTMLAnchorElement)) return;
+    if (!isPhoneOrMessengerContactLink(anchor) && !isConsultationFloatingCta(anchor)) return;
+    const targetUrl = getAdsNavigationUrl(anchor);
+    if (!targetUrl) return;
+    event.preventDefault();
+    const openInNewTab = anchor.target === "_blank";
+    gtag_report_conversion(targetUrl, openInNewTab);
+  },
+  true,
+);
+
 const PHONE_PREFIX = "+380";
 const TELEGRAM_BOT_TOKEN = "8556207665:AAF-6bJnbwQOREkA3jAqFiAVmqQTFumiUgY";
 const TELEGRAM_CHAT_ID = "1262055797";
@@ -374,6 +443,7 @@ document.querySelectorAll("[data-consultation-form]").forEach((form) => {
       }
 
       note.textContent = "Дякуємо! Заявку отримано. Ми зв'яжемося з вами найближчим часом.";
+      gtag_report_conversion();
       setLastSubmitAt(Date.now());
       form.reset();
       if (phoneInput instanceof HTMLInputElement) {
