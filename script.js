@@ -136,7 +136,7 @@ if (menuToggle instanceof HTMLButtonElement && menu instanceof HTMLElement) {
 }
 
 /** Google Ads — конверсія «Контакт» (подія після gtag у <head>) */
-const GOOGLE_ADS_CONVERSION_SEND_TO = "AW-18141894337/8hzzCIHygqkcEMGt3cpD";
+const GOOGLE_ADS_CONVERSION_SEND_TO = "AW-18141894337/8hzzCIHYgqkcEMGt3cpD";
 
 window.gtag_report_conversion = function gtag_report_conversion(url, openInNewTab) {
   const callback = function () {
