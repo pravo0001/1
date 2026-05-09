@@ -1706,6 +1706,7 @@ body.premium-site {
 .premium-site .contact-panel,
 .premium-site .spotlight-panel,
 .premium-site .page-hero .panel,
+.premium-site .section .container > .panel,
 .premium-site .cta-banner {
   padding: 34px;
 }
@@ -2530,6 +2531,7 @@ body.premium-site.uniform-page-bg::before {
   .premium-site .spotlight-panel,
   .premium-site .article-wrap,
   .premium-site .page-hero .panel,
+  .premium-site .section .container > .panel,
   .premium-site .cta-banner {
     padding: 28px;
   }
@@ -2570,6 +2572,7 @@ body.premium-site.uniform-page-bg::before {
   .premium-site .spotlight-panel,
   .premium-site .article-wrap,
   .premium-site .page-hero .panel,
+  .premium-site .section .container > .panel,
   .premium-site .cta-banner,
   .premium-site .stat-card,
   .premium-site .service-card,
