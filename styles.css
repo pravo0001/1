@@ -2604,11 +2604,6 @@ body.premium-site.uniform-page-bg::before {
     min-height: 0;
     padding: 20px 22px;
   }
-
-  .premium-site .floating-cta {
-    right: 12px;
-    bottom: 12px;
-  }
 }
 
 /* === Stats row (real court cases) — same 3-col track + gap as .case-grid === */
@@ -2660,71 +2655,25 @@ body.premium-site.uniform-page-bg::before {
   }
 }
 
-/* === Mobile sticky bottom bar (3 quick-contact buttons) === */
+/* Retired bottom bar (.mobile-cta-bar); round phone FAB is used on all breakpoints. */
 .premium-site .mobile-cta-bar {
-  display: none;
+  display: none !important;
 }
 
 @media (max-width: 720px) {
-  .premium-site .mobile-cta-bar {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 30;
-    background: var(--surface-strong, #18120e);
-    border-top: 1px solid var(--line, rgba(255,255,255,0.08));
-    box-shadow: 0 -8px 24px rgba(0,0,0,0.35);
-    padding: 0;
-  }
-
-  .premium-site .mobile-cta-bar a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 10px 6px 12px;
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.78rem;
-    font-weight: 600;
-    line-height: 1.1;
-    border-right: 1px solid var(--line, rgba(255,255,255,0.06));
-    min-height: 56px;
-    text-align: center;
-  }
-
-  .premium-site .mobile-cta-bar a:last-child {
-    border-right: none;
-  }
-
-  .premium-site .mobile-cta-bar a:active,
-  .premium-site .mobile-cta-bar a:focus-visible {
-    background: rgba(231, 200, 145, 0.10);
-    outline: none;
-  }
-
-  .premium-site .mobile-cta-bar .cta-icon {
-    font-size: 1.25rem;
-    line-height: 1;
-  }
-
-  .premium-site .mobile-cta-bar .cta-call {
-    background: linear-gradient(180deg, rgba(231,200,145,0.22), rgba(231,200,145,0.08));
-    color: #f5e7c5;
-  }
-
-  /* hide the round floating phone CTA on mobile — its job is now the bottom bar */
   .premium-site .floating-cta {
-    display: none !important;
+    right: max(12px, env(safe-area-inset-right, 0px));
+    bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    z-index: 40;
+    display: inline-flex !important;
+    width: 58px;
+    min-width: 58px;
+    height: 58px;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.4);
   }
 
-  /* lift footer above the bar */
-  body.premium-site {
-    padding-bottom: 64px;
+  .premium-site .floating-cta::before {
+    width: 24px;
+    height: 24px;
   }
 }
